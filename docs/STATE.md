@@ -22,6 +22,15 @@ Spec: [`SPEC.md`](SPEC.md). Where they disagree, this file wins. Mathematical re
 3. GeoMotor lives in `step-quiz-commons` (its README widened beyond the programming courses). This repo never
    edits `js/motor/geo-motor.js`; `.prettierignore` excludes it; `tests/geo-motor.test.js` only checks the copy.
 
+4. (2026-10-23, later) **Look and feel copied from `geom`**: paper and ink, Source Serif 4 + JetBrains Mono (local
+   woff2 copied from `geom` into `vendor/fonts/`, `css/fonts.css`), no cards or shadows, hairline rules, quiet
+   buttons, one UI accent (pencil brown `--llapis`). Figure: one colour, sanguina (`--sanguina`), for the
+   emphasised objects and the hint objects, as in `geom` (black = the given figure); aux in faint ink; «I després»
+   in soft ink, dash-dot. The two-column layout with the sticky figure stays (the user wants the figure always on
+   screen); the home page stays a grid of figures (without card decoration). Text colours used: `--tinta`,
+   `--tinta-suau`, `--llapis` (all ≥ 4.5:1 on both papers, light and dark); `--tinta-fluixa` only for lines and
+   disabled buttons. UI strings no longer name colours («en blau», «en verd» → the stroke style).
+
 ## Technical decisions (agent)
 
 - **Theorem record** follows SPEC §14.2 with these concrete choices:

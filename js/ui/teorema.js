@@ -350,6 +350,7 @@
         ol.textContent = '';
         ORDRE_PISTES.slice(0, obertes).forEach(function (k) {
             var li = document.createElement('li');
+            li.className = 'pista-' + k;
             var nom = document.createElement('span');
             nom.className = 'nom-pista';
             nom.textContent = T.nomsPistes[k];

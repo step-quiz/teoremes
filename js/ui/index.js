@@ -43,7 +43,7 @@
         a.appendChild(fig);
         var num = document.createElement('span');
         num.className = 'numero';
-        num.textContent = t.ordre;
+        num.textContent = (t.ordre < 10 ? '0' : '') + t.ordre;
         a.appendChild(num);
         a.appendChild(C.element('h2', t.nom));
         var en = document.createElement('p');
