@@ -3,7 +3,7 @@
  * PROJECTE: teoremes (Step Quiz, vanilla JS)
  * FITXER: js/ui/teorema.js
  * ROL: La pàgina d'un teorema (teorema.html?id=…): la figura que es pot
- *      arrossegar amb el mesurador d'error en directe, la «Prova de
+ *      arrossegar amb el veredicte en directe (sense xifres d'error), la «Prova de
  *      resistència» (1000 configuracions i la variant trencada), l'escala de
  *      pistes, la demostració pas a pas, «I després» i el mode projector.
  * ARQUITECTURA: Script clàssic. Adreça: ?id=… (obligatori), ?projector=1.
@@ -118,25 +118,21 @@
             var el = $('figura').querySelector('[data-id="' + focus + '"]');
             if (el) el.focus();
         }
-        mesura();
+        veredicte();
     }
-    function mesura() {
+    /** Només el veredicte: cap xifra d'error ni de tolerància a la pantalla. */
+    function veredicte() {
         var e = R.errorDe(t, res.valors);
-        var ple = $('ple-barra'),
-            val = $('valor-error');
-        var mesura = $('mesura');
-        mesura.classList.remove('bo', 'mal', 'res');
+        var v = $('veredicte');
+        v.classList.remove('bo', 'mal', 'res');
         if (e === null) {
-            ple.style.width = '0%';
-            mesura.classList.add('res');
-            val.textContent = T.error + ': — · ' + T.degenerada;
+            v.classList.add('res');
+            v.textContent = T.degenerada;
             return;
         }
-        var pct = e <= 0 ? 0 : Math.max(0, Math.min(100, ((Math.log10(e) + 16) / 16) * 100));
-        ple.style.width = pct.toFixed(1) + '%';
         var bo = e <= Inv.TOLERANCIA;
-        mesura.classList.add(bo ? 'bo' : 'mal');
-        val.textContent = T.error + ': ' + Inv.format(e) + ' · ' + (bo ? T.esCompleix + ' ✓' : T.noEsCompleix + ' ✗');
+        v.classList.add(bo ? 'bo' : 'mal');
+        v.textContent = bo ? T.esCompleix + ' ✓' : T.noEsCompleix + ' ✗';
     }
 
     /** El punt del món (cm, y cap amunt) sota el punter. */
@@ -283,7 +279,6 @@
     $('btn-trencada').textContent = T.trencada;
     $('t-en-trencada').textContent = T.enTrencada;
     C.posa($('text-trencada'), t.trencada.text);
-    $('nota-error').textContent = T.nota;
     $('instruccio').textContent = T.arrossega;
     if (t.nota) C.posa($('nota'), t.nota);
     else $('nota').hidden = true;
@@ -293,20 +288,9 @@
             rt = R.prova(t, { trencada: true });
         var inf = $('informe');
         inf.textContent = '';
-        inf.appendChild(C.element('p', T.informe(r, Inv.format), r.compleixen === r.n ? 'bo' : 'mal'));
+        inf.appendChild(C.element('p', T.informe(r), r.compleixen === r.n ? 'bo' : 'mal'));
         if (r.descartades) inf.appendChild(C.element('p', T.descartades(r.descartades), 'nota'));
-        inf.appendChild(C.element('p', T.informeTrencada(rt, Inv.format), 'trencada'));
-        var b = document.createElement('button');
-        b.type = 'button';
-        b.className = 'btn btn-petit';
-        b.textContent = T.pitjor;
-        b.addEventListener('click', function () {
-            if (mode.trencada) commutaTrencada();
-            K.posa(fig, r.pitjor);
-            res = G.avalua(fig);
-            dibuixa();
-        });
-        inf.appendChild(b);
+        inf.appendChild(C.element('p', T.informeTrencada(rt), 'trencada'));
         inf.hidden = false;
     });
     var tirades = 0;

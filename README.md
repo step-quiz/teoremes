@@ -6,8 +6,8 @@ Web: https://teoremes.step-quiz.net
 
 Cada teorema té quatre esglaons:
 
-1. **Arrossega.** Una figura dinàmica: mous els punts lliures i el teorema continua sent cert. Un mesurador diu, en directe, quant s’hi allunya la figura («error: 2·10⁻¹⁵»), en escala logarítmica.
-2. **Posa-ho a prova.** La «Prova de resistència» fa 1000 configuracions a l’atzar (amb llavor, sempre les mateixes) i diu l’error més gran: «1000 de 1000 configuracions; error màxim 3·10⁻¹³». També prova una **variant trencada** (un teorema fals que s’hi assembla) per veure com és quan no es compleix; el botó «Variant trencada» la posa a la figura.
+1. **Arrossega.** Una figura dinàmica: mous els punts lliures i el teorema continua sent cert. Sota la figura només hi diu «Es compleix ✓» (o «No es compleix ✗» a la variant trencada): cap xifra d’error ni de tolerància, perquè el que assegura el teorema és la demostració, no la mesura.
+2. **Posa-ho a prova.** La «Prova de resistència» fa 1000 configuracions a l’atzar (amb llavor, sempre les mateixes) i diu quantes compleixen el teorema: «1000 de 1000 configuracions compleixen el teorema». També prova una **variant trencada** (un teorema fals que s’hi assembla) per veure com és quan no es compleix; el botó «Variant trencada» la posa a la figura.
 3. **Demostra-ho.** L’**escala de pistes** de geom (què has de fer, un cas concret, la figura, on mirar, comprovació; cap pista no dona la resposta) i una **demostració** pas a pas, amb «Prova-ho primer al paper» abans d’alguns passos.
 4. **I després?** La generalització o la pregunta següent, sovint amb objectes nous a la figura.
 
@@ -34,9 +34,9 @@ Hi ha **mode projector** i una **fitxa per imprimir** de cada teorema (figura, e
 
 Les demostracions les ha redactat la IA amb paraules pròpies i **les revisa el professor** (`docs/REVISIO.md`). Les figures són construccions dibuixades per codi en aquest web; els teoremes es diuen pel nom dels seus autors.
 
-## L’error
+## Es compleix o no (i per què no es veu cap xifra)
 
-L’error és **relatiu** (no té unitats): 0 vol dir exacte, i per sota de 10⁻⁹ només és l’arrodoniment de l’ordinador (es compleix). Per exemple, per a tres punts alineats és la distància del tercer a la recta dels altres dos, dividida per la mida de la figura. Si la configuració és degenerada (punts que coincideixen, rectes paral·leles…), el teorema no hi diu res i no es compta.
+El web **no mostra mai** errors, distàncies residuals ni toleràncies: una demostració correcta assegura el resultat, i qualsevol representació (a la pantalla o al paper) sempre comet errors de mesura. Per dins, el codi calcula un error relatiu (per a tres punts alineats, la distància del tercer a la recta dels altres dos, dividida per la mida de la figura) i el compara amb 10⁻⁹ per decidir el «Es compleix ✓»; aquestes xifres només surten als tests. Si la configuració és degenerada (punts que coincideixen, rectes paral·leles…), el teorema no hi diu res i no es compta.
 
 A la prova de resistència, cada punt lliure va a l’atzar dins d’uns límits i cada punt sobre una circumferència, a un angle a l’atzar. Es descarten les configuracions degenerades (triangles gairebé plans, punts massa junts, talls gairebé a l’infinit) fins a tenir-ne 1000 de bones.
 

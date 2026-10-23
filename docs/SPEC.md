@@ -13,7 +13,7 @@ taken and wins.**
 
 For each surprising theorem:
 1. **drag**: the figure keeps the theorem true however you move it;
-2. **stress test**: 1000 random configurations, with the worst error shown;
+2. **stress test**: 1000 random configurations, with how many satisfy the theorem (no error figures on screen);
 3. **climb the hint ladder** to a synthetic proof;
 4. **i després**: the generalisation.
 
@@ -39,10 +39,10 @@ This is the upper floor of `geom`.
 
 `colinears(P, Q, R)`, `concurrents(l1, l2, l3)`, `conciclics(A, B, C, D)`, `equilater(P, Q, R)`, `tangents(c1, c2)` (|d − (r1 ± r2)|), `igualtat(expr1, expr2)` (for Ptolemy: `AC·BD = AB·CD + AD·BC`).
 
-- **Live meter.** While dragging, show the current error on a log-scale bar, e.g. «error: 2·10⁻¹⁵».
+- **Live verdict.** While dragging, show only «Es compleix ✓» / «No es compleix ✗» (or «Configuració degenerada…»). **Never show error values, residual distances or tolerances on screen** (user decision, 2026-10-23): a correct proof guarantees the result; any drawing carries measurement error. Numbers stay in the tests.
 - **«Prova de resistència».**
   - Generate 1000 seeded configurations within `limits` and skip the degenerate ones.
-  - Report «1000 de 1000 configuracions; error màxim 3·10⁻¹³».
+  - Report «1000 de 1000 configuracions compleixen el teorema» (no error figures).
   - Also report one deliberately broken variant to show what failure looks like: for example, Napoleon with isosceles triangles instead of equilateral ones.
 
 ### 14.4 Initial list (14; the user approves)
