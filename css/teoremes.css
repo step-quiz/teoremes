@@ -4,7 +4,7 @@ PROJECTE: teoremes (Step Quiz, vanilla JS)
 FITXER: css/teoremes.css
 ROL: Estils de les tres pàgines (index.html, teorema.html i fitxa.html):
      capçalera, portada, la figura (classes r-* de js/motor/dibuix.js), el
-     mesurador d'error, l'informe de la prova, pistes i demostració, mode
+     veredicte (es compleix o no, sense xifres), l'informe de la prova, pistes i demostració, mode
      projector (body.projector) i impressió (sempre negre sobre blanc).
      L'estil és el de geom: paper i tinta, sense targetes ni ombres, separadors
      fins, etiquetes en monoespaiada i botons discrets.
@@ -441,41 +441,18 @@ summary:focus-visible {
     stroke-width: 2px;
 }
 
-/* ── Mesurador d'error: tinta si es compleix, llapis si no ─────────────── */
-.mesura {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-top: 10px;
-}
-.barra {
-    flex: 0 0 34%;
-    height: 6px;
-    border: 1px solid var(--linia-forta);
-    border-radius: 1px;
-    background: transparent;
-    overflow: hidden;
-}
-.ple-barra {
-    width: 0;
-    height: 100%;
-    background: var(--tinta-suau);
-}
-.mesura.mal .ple-barra {
-    background: var(--llapis);
-}
-.valor {
-    margin: 0;
+/* ── Veredicte: tinta si es compleix, llapis si no ─────────────────────── */
+.veredicte {
+    margin: 10px 0 0;
     font-family: var(--lletra-mono);
     font-size: 0.82rem;
     letter-spacing: var(--espai-mono);
-    font-variant-numeric: tabular-nums;
 }
-.mesura.mal .valor {
+.veredicte.mal {
     color: var(--llapis);
     font-weight: 500;
 }
-.mesura.res .valor {
+.veredicte.res {
     color: var(--tinta-suau);
 }
 .avis-trencada {
@@ -590,12 +567,6 @@ body.projector .figura .r-destacat {
     stroke-width: 4px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-    .ple-barra {
-        transition: width 0.15s;
-    }
-}
-
 /* ── Fitxes ────────────────────────────────────────────────────────────── */
 .fitxa {
     max-width: 780px;
@@ -666,7 +637,7 @@ body.projector .figura .r-destacat {
     }
     .no-imprimir,
     .accions,
-    .mesura,
+    .veredicte,
     .informe,
     .enllacos,
     .navega {

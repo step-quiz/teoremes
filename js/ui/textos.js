@@ -38,11 +38,9 @@
         triat: function (p) {
             return 'Has triat ' + p + ': toca on el vols posar, o fes servir les fletxes. Esc per deixar-lo.';
         },
-        error: 'error',
-        esCompleix: 'es compleix',
-        noEsCompleix: 'no es compleix',
-        degenerada: 'configuració degenerada: el teorema no hi diu res',
-        nota: 'L’error és relatiu: 0 vol dir exacte, i per sota de 10⁻⁹ només és l’arrodoniment de l’ordinador.',
+        esCompleix: 'Es compleix',
+        noEsCompleix: 'No es compleix',
+        degenerada: 'Configuració degenerada: el teorema no hi diu res',
 
         // Accions
         prova: 'Prova de resistència',
@@ -50,36 +48,25 @@
         inicial: 'Torna a la figura inicial',
         trencada: 'Variant trencada',
         tornaTeorema: 'Torna al teorema',
-        pitjor: 'Mostra la pitjor configuració',
         projector: 'Mode projector',
         surtProjector: 'Surt del projector',
 
         // Prova de resistència
-        informe: function (r, fmt) {
-            return (
-                'Prova de resistència: ' +
-                r.compleixen +
-                ' de ' +
-                r.n +
-                ' configuracions compleixen el teorema; error màxim ' +
-                fmt(r.errorMax) +
-                '.'
-            );
+        informe: function (r) {
+            return 'Prova de resistència: ' + r.compleixen + ' de ' + r.n + ' configuracions compleixen el teorema.';
         },
         descartades: function (n) {
             return n === 1
                 ? 'S’ha descartat 1 configuració degenerada.'
-                : 'S’han descartat ' + n + ' configuracions degenerades (punts massa junts, triangles gairebé plans…).';
+                : 'S’han descartat ' + n + ' configuracions degenerades.';
         },
-        informeTrencada: function (r, fmt) {
+        informeTrencada: function (r) {
             return (
                 'Variant trencada: ' +
                 r.compleixen +
                 ' de ' +
                 r.n +
-                ' configuracions; error mitjà ' +
-                fmt(r.errorMedia) +
-                '. Així és un «teorema» que no es compleix.'
+                ' configuracions. Així és un «teorema» que no es compleix.'
             );
         },
         enTrencada: 'Estàs mirant la variant trencada:',
