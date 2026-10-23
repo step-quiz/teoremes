@@ -6,8 +6,8 @@ Web: https://teoremes.step-quiz.net
 
 Cada teorema té quatre esglaons:
 
-1. **Arrossega.** Una figura dinàmica: mous els punts lliures i el teorema continua sent cert. Sota la figura només hi diu «Es compleix ✓» (o «No es compleix ✗» a la variant trencada): cap xifra d’error ni de tolerància, perquè el que assegura el teorema és la demostració, no la mesura.
-2. **Posa-ho a prova.** La «Prova de resistència» fa 1000 configuracions a l’atzar (amb llavor, sempre les mateixes) i diu quantes compleixen el teorema: «1000 de 1000 configuracions compleixen el teorema». També prova una **variant trencada** (un teorema fals que s’hi assembla) per veure com és quan no es compleix; el botó «Variant trencada» la posa a la figura.
+1. **Arrossega.** Una figura dinàmica: mous els punts lliures i el teorema continua sent cert. No hi ha cap veredicte de l’ordinador (ni xifres d’error ni «es compleix»): el que assegura el teorema és la demostració, no la mesura.
+2. **Trenca una hipòtesi.** El botó «Variant trencada» canvia una hipòtesi (un teorema fals que s’hi assembla) i una frase diu què es perd; a la figura es veu què canvia.
 3. **Demostra-ho.** L’**escala de pistes** de geom (què has de fer, un cas concret, la figura, on mirar, comprovació; cap pista no dona la resposta) i una **demostració** pas a pas, amb «Prova-ho primer al paper» abans d’alguns passos.
 4. **I després?** La generalització o la pregunta següent, sovint amb objectes nous a la figura.
 
@@ -34,11 +34,11 @@ Hi ha **mode projector** i una **fitxa per imprimir** de cada teorema (figura, e
 
 Les demostracions les ha redactat la IA amb paraules pròpies i **les revisa el professor** (`docs/REVISIO.md`). Les figures són construccions dibuixades per codi en aquest web; els teoremes es diuen pel nom dels seus autors.
 
-## Es compleix o no (i per què no es veu cap xifra)
+## Cap veredicte de l’ordinador a la pantalla
 
-El web **no mostra mai** errors, distàncies residuals ni toleràncies: una demostració correcta assegura el resultat, i qualsevol representació (a la pantalla o al paper) sempre comet errors de mesura. Per dins, el codi calcula un error relatiu (per a tres punts alineats, la distància del tercer a la recta dels altres dos, dividida per la mida de la figura) i el compara amb 10⁻⁹ per decidir el «Es compleix ✓»; aquestes xifres només surten als tests. Si la configuració és degenerada (punts que coincideixen, rectes paral·leles…), el teorema no hi diu res i no es compta.
+El web **no mostra mai** errors, distàncies residuals, toleràncies, «es compleix ✓/✗» ni recomptes del tipus «1000 de 1000»: la demostració sintètica és la que assegura el resultat, precisament per deixar enrere els errors de mesura, i cap raonament empíric o estadístic no la substitueix.
 
-A la prova de resistència, cada punt lliure va a l’atzar dins d’uns límits i cada punt sobre una circumferència, a un angle a l’atzar. Es descarten les configuracions degenerades (triangles gairebé plans, punts massa junts, talls gairebé a l’infinit) fins a tenir-ne 1000 de bones.
+Per dins, els tests (només per al desenvolupament) sí que fan servir números: calculen un error relatiu (per a tres punts alineats, la distància del tercer a la recta dels altres dos, dividida per la mida de la figura) i fan la **prova de resistència**: 1000 configuracions a l’atzar (amb llavor) per teorema, que han de complir-lo, i la variant trencada, que ha de fallar. Així es comprova que les construccions del codi estan ben fetes. Es descarten les configuracions degenerades (triangles gairebé plans, punts massa junts, talls gairebé a l’infinit).
 
 ## Com es mou la figura
 
@@ -67,7 +67,7 @@ HTML, CSS i JavaScript sense compilació, amb scripts clàssics perquè funcioni
 
 ```
 index.html               la portada
-teorema.html             un teorema: figura, prova, pistes, demostració, i després
+teorema.html             un teorema: figura, variant trencada, pistes, demostració, i després
 fitxa.html               les fitxes per imprimir
 css/fonts.css            les lletres (Source Serif 4 i JetBrains Mono, les de geom)
 css/tokens.css           colors (clar i fosc), també els de la figura
@@ -80,7 +80,7 @@ js/motor/atzar.js        atzar amb llavor (el de prova1eso)
 js/motor/text.js         separa el text i les fórmules entre $…$
 js/motor/invariants.js   els comprovadors (alineats, concurrents, concíclics…)
 js/motor/construccio.js  de les dades d’un teorema a una figura de GeoMotor
-js/motor/resistencia.js  la prova de resistència (1000 configuracions)
+js/motor/resistencia.js  configuracions a l’atzar i la prova de resistència dels tests (1000 configuracions)
 js/motor/dibuix.js       la figura en SVG
 js/ui/textos.js          els textos de la interfície
 js/ui/comu.js            fórmules amb KaTeX, pistes desades

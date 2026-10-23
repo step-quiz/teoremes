@@ -13,7 +13,7 @@ taken and wins.**
 
 For each surprising theorem:
 1. **drag**: the figure keeps the theorem true however you move it;
-2. **stress test**: 1000 random configurations, with how many satisfy the theorem (no error figures on screen);
+2. **break a hypothesis**: the broken variant on the figure, to see what changes (superseded: the original «stress test» is no longer shown, see STATE.md);
 3. **climb the hint ladder** to a synthetic proof;
 4. **i després**: the generalisation.
 
@@ -39,11 +39,8 @@ This is the upper floor of `geom`.
 
 `colinears(P, Q, R)`, `concurrents(l1, l2, l3)`, `conciclics(A, B, C, D)`, `equilater(P, Q, R)`, `tangents(c1, c2)` (|d − (r1 ± r2)|), `igualtat(expr1, expr2)` (for Ptolemy: `AC·BD = AB·CD + AD·BC`).
 
-- **Live verdict.** While dragging, show only «Es compleix ✓» / «No es compleix ✗» (or «Configuració degenerada…»). **Never show error values, residual distances or tolerances on screen** (user decision, 2026-10-23): a correct proof guarantees the result; any drawing carries measurement error. Numbers stay in the tests.
-- **«Prova de resistència».**
-  - Generate 1000 seeded configurations within `limits` and skip the degenerate ones.
-  - Report «1000 de 1000 configuracions compleixen el teorema» (no error figures).
-  - Also report one deliberately broken variant to show what failure looks like: for example, Napoleon with isosceles triangles instead of equilateral ones.
+- **No empirical verdict on screen** (user decision, 2026-10-23, supersedes the live meter and the on-screen «Prova de resistència»): no error values, residual distances, tolerances, «es compleix ✓/✗» or «1000 de 1000» anywhere on the site. A synthetic proof is what guarantees the result, precisely to leave measurement behind. The checkers and the 1000-configuration stress test stay, but only as the developer's tests.
+- **Broken variant.** One deliberately broken variant per theorem, shown on the figure with a sentence saying which hypothesis changes and what is lost: for example, Napoleon with isosceles triangles instead of equilateral ones.
 
 ### 14.4 Initial list (14; the user approves)
 
@@ -80,7 +77,7 @@ Construction notes:
 
 ### 14.6 Acceptance criteria
 
-- [ ] 14 theorems with drag, stress test, ladder, proof and *i després*.
+- [ ] 14 theorems with drag, broken variant, ladder, proof and *i després* (stress test only in the tests).
 - [ ] GeoMotor consumed from commons, not copied by hand.
 - [ ] Projector mode.
 

@@ -10,7 +10,7 @@ Spec: [`SPEC.md`](SPEC.md). Where they disagree, this file wins. Mathematical re
 | GeoMotor moved to `step-quiz-commons/fitxers/geo-motor.js` (+ its tests), `figures` and `teoremes` registered in `comuns.json` | DONE (commons ZIP + figures v2 ZIP delivered with this one) |
 | Engines: `invariants.js`, `construccio.js`, `resistencia.js`, `dibuix.js` (pure, Node-tested) | DONE |
 | Content: 14 theorems in `data/teoremes/` | DRAFTED; math review by the user PENDING (`REVISIO.md`) |
-| UI: `index.html`, `teorema.html` (drag, live verdict, stress test, broken variant, ladder, proof, i després, projector), `fitxa.html` (A4, one sheet per page) | DONE, browser-checked under `file://` (Chromium, 1366 px and 360 px; 14 sheets = 14 A4 pages) |
+| UI: `index.html`, `teorema.html` (drag, broken variant, ladder, proof, i després, projector), `fitxa.html` (A4, one sheet per page) | DONE, browser-checked under `file://` (Chromium, 1366 px and 360 px; 14 sheets = 14 A4 pages) |
 | Tests (`node tests/run-all.js`) | DONE, all green |
 | GitHub bootstrap (`unzip-upload.yml`, `tests.yml`, `comuns.yml`, `_uploads/`), Cloudflare `teoremes.step-quiz.net` | PENDING (user) |
 | Card in `ins/index.html`, row in `.github/profile/README.md` | PENDING (after first public release) |
@@ -51,12 +51,11 @@ Spec: [`SPEC.md`](SPEC.md). Where they disagree, this file wins. Mathematical re
   points), circle errors by the radius, equalities by the larger side. Tolerance 1e-9 for «es compleix»; the stress
   test asserts ≤ 1e-8 (spec). A checker returns `null` for degenerate input (coincident points, three parallel
   lines…). Observed maxima over 1000 configurations: 0 (Varignon) to 2·10⁻¹² (butterfly).
-- **Stress test** (`resistencia.js`): seed `teoremes:<id>`; free points uniform in `limits`, points on a circle at a
+- **Stress test** (`resistencia.js`, **tests only**; the page uses just `configura` and `degenerada` for «Configuració a l’atzar»): seed `teoremes:<id>`; free points uniform in `limits`, points on a circle at a
   uniform angle, on a segment t ∈ [0,05, 0,95]. Degenerate rules per theorem (`areaMinima`, `angleMinim`,
   `distMinima`, `maxCoord`, default 1000) plus nulls; generates until 1000 good ones (cap 20 000 attempts). The broken
-  variant uses the same seed. Report: «1000 de 1000 configuracions compleixen el teorema», discarded count (no reasons
-  listed), broken variant «0 de 1000 configuracions…». `prova()` still returns `errorMax`, `errorMedia` and `pitjor`
-  for the tests, but the UI shows none of them (the «pitjor configuració» button was removed).
+  variant uses the same seed. `prova()` returns `n`, `compleixen`, `errorMax`, `errorMedia`, `descartades`, `pitjor`
+  for the tests; nothing of it reaches the screen.
 - **Broken variants**: Varignon/mediatrius at one third instead of the midpoint; Euler with the incentre; nine points
   with midpoints of AG…; Napoleon with 50° isosceles; Miquel with E on the median; Simson, Ptolemy, Pascal with one
   point on a concentric circle of radius 5/4·R (or radius 5 vs 4); butterfly with M at 4/10; Monge with one internal
@@ -74,10 +73,12 @@ Spec: [`SPEC.md`](SPEC.md). Where they disagree, this file wins. Mathematical re
 - **Interaction triad**: drag (pointer capture on the figure container, `touch-action: none` only there); tap a
   point then tap the target (then it is deselected); keyboard (Tab, arrows 0,1 cm / 2°, Shift ×5, Enter selects,
   Esc deselects). During a drag GeoMotor gets `anterior` (branch continuity); on release `fixaBranques`.
-- **No error figures on screen** (user decision, 2026-10-23): the live meter (log-scale bar + «error: 2·10⁻¹⁵»), the
-  note about 10⁻⁹ and the «error màxim / mitjà» of the stress test were removed. Under the figure there is only the
-  verdict (`#veredicte`: «Es compleix ✓», «No es compleix ✗» or «Configuració degenerada…»). Rationale: a correct
-  proof guarantees the result; any representation carries measurement error. Tolerances live only in code and tests.
+- **No empirical verdict on screen** (user decision, 2026-10-23): removed the live meter (log-scale bar +
+  «error: 2·10⁻¹⁵»), the note about 10⁻⁹, the live «Es compleix ✓ / No es compleix ✗ / Configuració degenerada», the
+  «Prova de resistència» button and its report (theorem and broken variant: «1000 de 1000…», discarded count, errors,
+  «Mostra la pitjor configuració»). Rationale: a synthetic proof guarantees the result precisely to leave measurement
+  behind; numerical or statistical evidence on screen goes against it. Step 2 is now «Trenca una hipòtesi»: the broken
+  variant on the figure with its sentence. Tolerances and the stress test live only in code and tests.
 - **Storage**: only `teoremes:v1:pistes` ({ id: hints opened }), in try/catch.
 - **Default figures** were tuned so that everything (except some hint objects) fits the view; Pascal's default
   hexagon is self-intersecting so that X, Y, Z are visible (searched numerically).
@@ -86,7 +87,7 @@ Spec: [`SPEC.md`](SPEC.md). Where they disagree, this file wins. Mathematical re
 
 ## Acceptance criteria (spec §14.6)
 
-- [x] 14 theorems with drag, stress test, ladder, proof and *i després*.
+- [x] 14 theorems with drag, broken variant, ladder, proof and *i després* (stress test only in the tests).
 - [x] GeoMotor consumed from commons, not copied by hand (synced by `sincronitza.py`; daily `comuns.yml`).
 - [x] Projector mode (`?projector=1` or the button).
 

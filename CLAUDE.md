@@ -30,8 +30,9 @@ repositori, si n'hi ha més avall, manen sobre aquestes quan diuen una altra cos
 
 ## Aquest repositori
 
-**Teoremes que no t’esperes** (`teoremes.step-quiz.net`): 14 teoremes de geometria amb figura dinàmica, prova de
-resistència, escala de pistes, demostració i «I després». Llegeix primer:
+**Teoremes que no t’esperes** (`teoremes.step-quiz.net`): 14 teoremes de geometria amb figura dinàmica, variant
+trencada, escala de pistes, demostració i «I després». **Cap veredicte de l'ordinador en pantalla** (ni errors,
+ni toleràncies, ni «es compleix», ni «1000 de 1000»): ho assegura la demostració. Els números, només als tests. Llegeix primer:
 
 - [`README.md`](README.md)
 - [`docs/SPEC.md`](docs/SPEC.md) (l'especificació, en anglès)
