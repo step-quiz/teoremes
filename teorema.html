@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="ca">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Teoremes que no t’esperes · Step Quiz</title>
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="vendor/katex-0.16.11/katex.min.css">
+    <link rel="stylesheet" href="css/tokens.css?v=0b0f027a">
+    <link rel="stylesheet" href="css/teoremes.css?v=442156cb">
+</head>
+<body>
+    <header class="capcalera">
+        <p class="marca"><a href="index.html" id="a-inici">Teoremes que no t’esperes</a></p>
+        <nav class="navega" aria-label="Teoremes">
+            <a href="index.html" id="a-anterior"></a>
+            <a href="index.html" id="a-tots"></a>
+            <a href="index.html" id="a-seguent"></a>
+        </nav>
+    </header>
+
+    <main class="principal" id="principal">
+        <section class="cap-teorema" aria-labelledby="nom">
+            <p class="etiqueta" id="etiqueta"></p>
+            <h1 id="nom"></h1>
+            <p class="angles" id="angles" lang="en"></p>
+            <p class="enunciat" id="enunciat"></p>
+        </section>
+
+        <div class="columnes">
+            <section class="col-figura" aria-label="La figura">
+                <div class="avis-trencada" id="avis-trencada" hidden>
+                    <p><strong id="t-en-trencada"></strong> <span id="text-trencada"></span></p>
+                </div>
+                <div class="marc-figura" id="figura"></div>
+                <div class="mesura" id="mesura">
+                    <div class="barra" aria-hidden="true"><div class="ple-barra" id="ple-barra"></div></div>
+                    <p class="valor" id="valor-error" aria-live="polite"></p>
+                </div>
+                <p class="nota" id="instruccio"></p>
+                <p class="nota" id="nota"></p>
+                <div class="accions">
+                    <button type="button" class="btn btn-principal" id="btn-prova"></button>
+                    <button type="button" class="btn" id="btn-atzar"></button>
+                    <button type="button" class="btn" id="btn-inicial"></button>
+                    <button type="button" class="btn" id="btn-trencada" aria-pressed="false"></button>
+                </div>
+                <div class="informe" id="informe" aria-live="polite" hidden></div>
+                <p class="nota" id="nota-error"></p>
+            </section>
+
+            <section class="col-text">
+                <details class="historia">
+                    <summary id="t-historia"></summary>
+                    <p id="historia"></p>
+                </details>
+
+                <section class="panell" aria-labelledby="t-pistes">
+                    <h2 id="t-pistes"></h2>
+                    <p class="nota" id="pistes-nota"></p>
+                    <ol class="pistes" id="pistes" aria-live="polite"></ol>
+                    <div class="accions">
+                        <button type="button" class="btn" id="btn-pista"></button>
+                    </div>
+                </section>
+
+                <section class="panell" aria-labelledby="t-demo">
+                    <h2 id="t-demo"></h2>
+                    <ol class="passos" id="passos"></ol>
+                    <div class="prova-primer" id="prova-primer" hidden>
+                        <p><strong id="t-prova-primer"></strong> <span id="text-prova-primer"></span></p>
+                        <button type="button" class="btn btn-petit" id="btn-pensat"></button>
+                    </div>
+                    <div class="accions">
+                        <button type="button" class="btn btn-principal" id="btn-pas"></button>
+                        <span class="nota" id="pas-de"></span>
+                    </div>
+                </section>
+
+                <section class="panell" aria-labelledby="t-idespres">
+                    <h2 id="t-idespres"></h2>
+                    <div id="idespres" hidden>
+                        <p id="text-idespres"></p>
+                        <p class="nota" id="idespres-figura"></p>
+                    </div>
+                    <div class="accions">
+                        <button type="button" class="btn" id="btn-idespres" aria-expanded="false"></button>
+                    </div>
+                </section>
+
+                <section class="referencies" aria-labelledby="t-referencies">
+                    <h2 id="t-referencies"></h2>
+                    <ul id="referencies"></ul>
+                </section>
+
+                <p class="enllacos">
+                    <a href="fitxa.html" id="a-fitxa"></a>
+                    <button type="button" class="btn btn-petit" id="btn-projector" aria-pressed="false"></button>
+                </p>
+            </section>
+        </div>
+    </main>
+
+    <footer class="peu">
+        <p>
+            Material desenvolupat per David Arso Civil per al Departament de Matemàtiques de l’INS Miquel Tarradell.
+            Contingut sota CC BY-NC-SA 4.0, codi sota llicència MIT. <a href="LLICENCIA.md">Llicència</a>.
+            Fórmules amb KaTeX (llicència MIT).
+        </p>
+    </footer>
+
+    <script src="vendor/katex-0.16.11/katex.min.js"></script>
+    <script src="data/teoremes/varignon.js?v=3f645edc"></script>
+    <script src="data/teoremes/mediatrius.js?v=3fc380fc"></script>
+    <script src="data/teoremes/euler.js?v=87d61b06"></script>
+    <script src="data/teoremes/nou-punts.js?v=f5725050"></script>
+    <script src="data/teoremes/napoleo.js?v=f2d6f8bb"></script>
+    <script src="data/teoremes/miquel.js?v=e4ced260"></script>
+    <script src="data/teoremes/simson.js?v=7666170f"></script>
+    <script src="data/teoremes/ptolemeu.js?v=ad88ae20"></script>
+    <script src="data/teoremes/papallona.js?v=b62bba95"></script>
+    <script src="data/teoremes/pascal.js?v=bb0030fc"></script>
+    <script src="data/teoremes/monge.js?v=d2329efa"></script>
+    <script src="data/teoremes/van-aubel.js?v=d028f2bc"></script>
+    <script src="data/teoremes/morley.js?v=6895a2f9"></script>
+    <script src="data/teoremes/feuerbach.js?v=4c0d4ac2"></script>
+    <script src="js/motor/geo-motor.js?v=e6545b61"></script>
+    <script src="js/motor/atzar.js?v=0c5e7a81"></script>
+    <script src="js/motor/text.js?v=e9f6b1de"></script>
+    <script src="js/motor/invariants.js?v=85c49944"></script>
+    <script src="js/motor/construccio.js?v=c3a0d792"></script>
+    <script src="js/motor/resistencia.js?v=3f4d4c02"></script>
+    <script src="js/motor/dibuix.js?v=bb823273"></script>
+    <script src="js/ui/textos.js?v=9233a447"></script>
+    <script src="js/ui/comu.js?v=26bfdb31"></script>
+    <script src="js/ui/teorema.js?v=eb39ef19"></script>
+</body>
+</html>

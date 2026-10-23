@@ -1,0 +1,695 @@
+/*
+============================================================================
+PROJECTE: teoremes (Step Quiz, vanilla JS)
+FITXER: css/teoremes.css
+ROL: Estils de les tres pàgines (index.html, teorema.html i fitxa.html):
+     capçalera, targetes, la figura (classes r-* de js/motor/dibuix.js), el
+     mesurador d'error, l'informe de la prova, pistes i demostració, mode
+     projector (body.projector) i impressió (sempre negre sobre blanc).
+DEPENDÈNCIES: css/tokens.css (es carrega abans); vendor/katex-0.16.11/katex.min.css.
+============================================================================
+*/
+* {
+    box-sizing: border-box;
+}
+html {
+    -webkit-text-size-adjust: 100%;
+}
+body {
+    margin: 0;
+    padding: 12px 16px 32px;
+    font-family: var(--lletra);
+    font-size: 17px;
+    line-height: 1.5;
+    color: var(--text);
+    background: var(--fons);
+}
+button {
+    font: inherit;
+}
+[hidden] {
+    display: none !important;
+}
+.katex {
+    font-size: 1.06em;
+}
+a {
+    color: var(--primari-fosc);
+}
+
+/* ── Capçalera i peu ───────────────────────────────────────────────────── */
+.capcalera,
+.principal,
+.peu,
+.fitxes {
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.capcalera {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 6px 16px;
+    margin-bottom: 12px;
+}
+.marca {
+    margin: 0;
+    font-weight: 700;
+}
+.marca a {
+    text-decoration: none;
+}
+.navega {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+.navega a {
+    font-weight: 600;
+}
+.capcalera-inici {
+    display: block;
+    margin-bottom: 18px;
+}
+.capcalera-inici h1 {
+    margin: 8px 0 4px;
+    font-size: 2em;
+    color: var(--primari-fosc);
+}
+.lema {
+    max-width: 46em;
+    margin: 0 0 10px;
+    font-size: 1.08em;
+}
+.esglaons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    counter-reset: esglao;
+}
+.esglaons li {
+    counter-increment: esglao;
+    padding: 2px 10px;
+    border: 1px solid var(--vora-panell);
+    border-radius: 999px;
+    background: var(--panell);
+    font-size: 0.92em;
+}
+.esglaons li::before {
+    content: counter(esglao) '. ';
+    font-weight: 700;
+    color: var(--primari-fosc);
+}
+.peu {
+    margin-top: 28px;
+    color: var(--text-suau);
+    font-size: 0.85em;
+}
+.nota {
+    color: var(--text-suau);
+    font-size: 0.92em;
+    margin: 6px 0;
+}
+.etiqueta {
+    margin: 0;
+    color: var(--text-suau);
+    font-size: 0.9em;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+.angles {
+    margin: 0;
+    color: var(--text-suau);
+    font-style: italic;
+}
+.enllacos {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+    margin-top: 14px;
+}
+
+/* ── Botons ────────────────────────────────────────────────────────────── */
+.accions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    margin-top: 10px;
+}
+.btn {
+    min-height: 44px;
+    padding: 8px 16px;
+    border: 2px solid var(--primari);
+    border-radius: 8px;
+    background: var(--panell);
+    color: var(--primari-fosc);
+    font-weight: 600;
+    cursor: pointer;
+}
+.btn-principal,
+.btn[aria-pressed='true'] {
+    background: var(--primari);
+    color: var(--panell);
+}
+.btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+.btn-petit {
+    min-height: 36px;
+    padding: 4px 10px;
+    font-size: 0.9em;
+}
+.btn:focus-visible,
+a:focus-visible,
+summary:focus-visible {
+    outline: 3px solid var(--f-pista);
+    outline-offset: 2px;
+}
+
+/* ── Portada ───────────────────────────────────────────────────────────── */
+.graella {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+    gap: 14px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+.targeta {
+    display: flex;
+    flex-direction: column;
+    background: var(--panell);
+    border: 1px solid var(--vora-panell);
+    border-radius: var(--radi);
+    box-shadow: var(--ombra);
+    overflow: hidden;
+}
+.targeta:hover {
+    border-color: var(--primari);
+}
+.enllac-targeta {
+    position: relative;
+    display: block;
+    padding: 0 14px 4px;
+    color: var(--text);
+    text-decoration: none;
+}
+.enllac-targeta h2 {
+    margin: 8px 0 0;
+    font-size: 1.1em;
+    color: var(--primari-fosc);
+}
+.miniatura {
+    margin: 0 -14px;
+    border-bottom: 1px solid var(--vora-panell);
+}
+.miniatura .figura {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 10;
+}
+.numero {
+    position: absolute;
+    top: 8px;
+    left: 10px;
+    min-width: 28px;
+    padding: 0 6px;
+    border-radius: 999px;
+    background: var(--primari);
+    color: var(--panell);
+    font-weight: 700;
+    text-align: center;
+}
+.enunciat-curt {
+    margin: 4px 14px 14px;
+    font-size: 0.93em;
+}
+
+/* ── Teorema ───────────────────────────────────────────────────────────── */
+.cap-teorema h1 {
+    margin: 2px 0 0;
+    font-size: 1.7em;
+    color: var(--primari-fosc);
+}
+.enunciat {
+    max-width: 52em;
+    margin: 10px 0 16px;
+    font-size: 1.1em;
+}
+.columnes {
+    display: grid;
+    grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+    gap: 18px;
+    align-items: start;
+}
+@media (max-width: 880px) {
+    .columnes {
+        grid-template-columns: minmax(0, 1fr);
+    }
+}
+.col-figura {
+    position: sticky;
+    top: 8px;
+}
+@media (max-width: 880px) {
+    .col-figura {
+        position: static;
+    }
+}
+.marc-figura {
+    border: 1px solid var(--vora-panell);
+    border-radius: var(--radi);
+    overflow: hidden;
+    background: var(--f-fons);
+    touch-action: none; /* només la figura: la resta de la pàgina es desplaça */
+}
+.marc-figura .figura {
+    display: block;
+    width: 100%;
+    height: auto;
+    user-select: none;
+    -webkit-user-select: none;
+}
+.panell {
+    background: var(--panell);
+    border: 1px solid var(--vora-panell);
+    border-radius: var(--radi);
+    box-shadow: var(--ombra);
+    padding: 14px;
+    margin-bottom: 14px;
+}
+.panell h2,
+.referencies h2 {
+    margin: 0 0 6px;
+    font-size: 1.15em;
+}
+.historia {
+    margin-bottom: 14px;
+}
+.historia summary {
+    cursor: pointer;
+    font-weight: 600;
+    color: var(--primari-fosc);
+}
+.referencies ul {
+    padding-left: 20px;
+    font-size: 0.92em;
+}
+
+/* ── La figura (classes de js/motor/dibuix.js) ─────────────────────────── */
+.figura .fons {
+    fill: var(--f-fons);
+}
+.figura line,
+.figura circle,
+.figura polygon {
+    fill: none;
+    vector-effect: non-scaling-stroke;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+.figura .r-base {
+    stroke: var(--f-base);
+    stroke-width: 1.6px;
+}
+.figura .r-aux {
+    stroke: var(--f-aux);
+    stroke-width: 1px;
+}
+.figura .r-pista {
+    stroke: var(--f-pista);
+    stroke-width: 1.4px;
+    stroke-dasharray: 5 4;
+}
+.figura .r-extra {
+    stroke: var(--f-extra);
+    stroke-width: 1.8px;
+    stroke-dasharray: 9 4 2 4;
+}
+.figura .r-destacat {
+    stroke: var(--f-destacat);
+    stroke-width: 2.8px;
+}
+.figura polygon.ple {
+    stroke: none;
+}
+.figura polygon.ple.r-destacat {
+    fill: var(--f-destacat-ple);
+}
+.figura polygon.ple.r-extra {
+    fill: var(--f-extra-ple);
+}
+.figura circle.punt {
+    stroke: none;
+    fill: var(--f-base);
+}
+.figura circle.punt.r-aux {
+    fill: var(--f-aux);
+}
+.figura circle.punt.r-pista {
+    fill: var(--f-pista);
+}
+.figura circle.punt.r-extra {
+    fill: var(--f-extra);
+}
+.figura circle.punt.r-destacat {
+    fill: var(--f-destacat);
+}
+.figura circle.punt.lliure {
+    fill: var(--f-lliure);
+    stroke: var(--f-fons);
+    stroke-width: 1.5px;
+}
+.figura circle.punt.triat {
+    stroke: var(--f-pista);
+    stroke-width: 4px;
+}
+.figura .et {
+    font-family: var(--lletra-figura);
+    font-style: italic;
+    fill: var(--f-base);
+    stroke: none;
+}
+.figura .et.r-destacat {
+    fill: var(--f-destacat);
+}
+.figura .et.r-pista {
+    fill: var(--f-pista);
+}
+.figura .et.r-extra {
+    fill: var(--f-extra);
+}
+.figura .et.r-aux {
+    fill: var(--text-suau);
+}
+.figura .toc {
+    fill: transparent;
+    stroke: none;
+    cursor: grab;
+}
+.figura .toc:focus {
+    outline: none;
+}
+.figura .toc:focus-visible {
+    stroke: var(--f-pista);
+    stroke-width: 2px;
+    stroke-dasharray: 3 3;
+}
+.figura .toc[aria-pressed='true'] {
+    stroke: var(--f-pista);
+    stroke-width: 2px;
+}
+
+/* ── Mesurador d'error ─────────────────────────────────────────────────── */
+.mesura {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 10px;
+}
+.barra {
+    flex: 0 0 34%;
+    height: 12px;
+    border: 1px solid var(--vora-panell);
+    border-radius: 999px;
+    background: var(--panell);
+    overflow: hidden;
+}
+.ple-barra {
+    width: 0;
+    height: 100%;
+    background: var(--be);
+}
+.mesura.mal .ple-barra {
+    background: var(--error);
+}
+.valor {
+    margin: 0;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+}
+.mesura.bo .valor {
+    color: var(--be);
+}
+.mesura.mal .valor {
+    color: var(--error);
+}
+.mesura.res .valor {
+    color: var(--text-suau);
+}
+.avis-trencada {
+    margin-bottom: 8px;
+    padding: 8px 12px;
+    border-left: 4px solid var(--avis-vora);
+    border-radius: 6px;
+    background: var(--avis-fons);
+}
+.avis-trencada p {
+    margin: 0;
+}
+.informe {
+    margin-top: 10px;
+    padding: 10px 12px;
+    border: 1px solid var(--vora-panell);
+    border-radius: var(--radi);
+    background: var(--panell);
+}
+.informe p {
+    margin: 4px 0;
+}
+.informe .bo {
+    color: var(--be);
+    font-weight: 600;
+}
+.informe .mal,
+.informe .trencada {
+    color: var(--error);
+    font-weight: 600;
+}
+
+/* ── Pistes i demostració ──────────────────────────────────────────────── */
+.pistes,
+.passos {
+    margin: 8px 0 0;
+    padding-left: 0;
+    list-style: none;
+}
+.pistes li {
+    margin: 0 0 8px;
+    padding: 8px 10px;
+    border-left: 4px solid var(--f-pista);
+    border-radius: 4px;
+    background: var(--fons);
+}
+.nom-pista {
+    display: block;
+    font-weight: 700;
+    font-size: 0.9em;
+    color: var(--text-suau);
+}
+.pistes .nota {
+    display: block;
+}
+.passos {
+    counter-reset: pas;
+}
+.passos li {
+    counter-increment: pas;
+    position: relative;
+    margin: 0 0 8px;
+    padding: 6px 0 6px 34px;
+}
+.passos li::before {
+    content: counter(pas);
+    position: absolute;
+    left: 0;
+    top: 6px;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: var(--primari-clar);
+    color: var(--primari-fosc);
+    font-weight: 700;
+    font-size: 0.85em;
+    text-align: center;
+    line-height: 24px;
+}
+.passos li.actual::before {
+    background: var(--primari);
+    color: var(--panell);
+}
+.prova-primer {
+    margin-top: 8px;
+    padding: 10px 12px;
+    border: 1px dashed var(--primari);
+    border-radius: var(--radi);
+    background: var(--primari-clar);
+}
+.prova-primer p {
+    margin: 0 0 6px;
+}
+
+/* ── Mode projector ────────────────────────────────────────────────────── */
+body.projector {
+    font-size: 22px;
+}
+body.projector .capcalera,
+body.projector .peu,
+body.projector .historia,
+body.projector .referencies {
+    display: none;
+}
+body.projector .principal {
+    max-width: none;
+}
+body.projector .columnes {
+    grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+}
+body.projector .marc-figura .figura {
+    max-height: 78vh;
+}
+body.projector .figura .r-base {
+    stroke-width: 2.4px;
+}
+body.projector .figura .r-destacat {
+    stroke-width: 4px;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .ple-barra {
+        transition: width 0.15s;
+    }
+}
+
+/* ── Fitxes ────────────────────────────────────────────────────────────── */
+.fitxa {
+    max-width: 780px;
+    margin: 0 auto 24px;
+    padding: 20px 24px;
+    background: var(--panell);
+    border: 1px solid var(--vora-panell);
+    border-radius: var(--radi);
+}
+.fitxa h1 {
+    margin: 4px 0 0;
+    font-size: 1.5em;
+}
+.fitxa h2 {
+    margin: 14px 0 4px;
+    font-size: 1.05em;
+}
+.figura-fitxa .figura {
+    display: block;
+    width: 72%;
+    height: auto;
+    margin: 0 auto;
+}
+.fitxa .pistes li {
+    margin-bottom: 4px;
+    padding: 4px 8px;
+}
+.espai {
+    height: 150px;
+    border: 1px solid var(--vora-panell);
+    border-radius: 6px;
+}
+.peu-fitxa {
+    margin: 12px 0 0;
+    font-size: 0.8em;
+    color: var(--text-suau);
+}
+
+/* ── Impressió: sempre negre sobre blanc ───────────────────────────────── */
+@page {
+    size: A4;
+    margin: 15mm;
+}
+@media print {
+    :root {
+        --text: #000;
+        --text-suau: #333;
+        --fons: #fff;
+        --panell: #fff;
+        --vora-panell: #999;
+        --f-fons: #fff;
+        --f-base: #000;
+        --f-aux: #888;
+        --f-pista: #000;
+        --f-extra: #000;
+        --f-destacat: #000;
+        --f-destacat-ple: rgba(0, 0, 0, 0.08);
+        --f-extra-ple: rgba(0, 0, 0, 0.05);
+        --f-lliure: #000;
+        --primari-fosc: #000;
+    }
+    body {
+        padding: 0;
+        font-size: 11pt;
+        background: #fff;
+    }
+    .no-imprimir,
+    .accions,
+    .mesura,
+    .informe,
+    .enllacos,
+    .navega {
+        display: none !important;
+    }
+    .fitxa {
+        max-width: none;
+        margin: 0;
+        padding: 0;
+        border: none;
+        page-break-after: always;
+        break-after: page;
+    }
+    .fitxa h1 {
+        font-size: 16pt;
+    }
+    .fitxa h2 {
+        margin: 8px 0 2px;
+        font-size: 11.5pt;
+    }
+    .fitxa .enunciat {
+        margin: 6px 0;
+        font-size: 11.5pt;
+    }
+    .figura-fitxa .figura {
+        width: auto;
+        max-width: 60%;
+        max-height: 56mm;
+    }
+    .fitxa .pistes li {
+        margin-bottom: 2px;
+        padding: 2px 6px;
+        font-size: 10pt;
+        break-inside: avoid;
+    }
+    .espai {
+        height: 30mm;
+    }
+    .fitxa:last-child {
+        page-break-after: auto;
+        break-after: auto;
+    }
+    .pistes li {
+        border-left-color: #000;
+        background: #fff;
+    }
+    .columnes {
+        display: block;
+    }
+    .col-figura {
+        position: static;
+    }
+}
