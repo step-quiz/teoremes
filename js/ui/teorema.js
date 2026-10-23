@@ -3,8 +3,8 @@
  * PROJECTE: teoremes (Step Quiz, vanilla JS)
  * FITXER: js/ui/teorema.js
  * ROL: La pàgina d'un teorema (teorema.html?id=…): la figura que es pot
- *      arrossegar amb el veredicte en directe (sense xifres d'error), la «Prova de
- *      resistència» (1000 configuracions i la variant trencada), l'escala de
+ *      arrossegar (sense cap veredicte de l'ordinador: ni xifres d'error ni
+ *      «es compleix»), la variant trencada, l'escala de
  *      pistes, la demostració pas a pas, «I després» i el mode projector.
  * ARQUITECTURA: Script clàssic. Adreça: ?id=… (obligatori), ?projector=1.
  *   Figura: Construccio.munta → GeoMotor.avalua → Dibuix.svg (innerHTML d'un
@@ -26,7 +26,6 @@
     'use strict';
     var G = window.GeoMotor,
         Atzar = window.Atzar,
-        Inv = window.Invariants,
         K = window.Construccio,
         R = window.Resistencia,
         D = window.Dibuix,
@@ -118,21 +117,6 @@
             var el = $('figura').querySelector('[data-id="' + focus + '"]');
             if (el) el.focus();
         }
-        veredicte();
-    }
-    /** Només el veredicte: cap xifra d'error ni de tolerància a la pantalla. */
-    function veredicte() {
-        var e = R.errorDe(t, res.valors);
-        var v = $('veredicte');
-        v.classList.remove('bo', 'mal', 'res');
-        if (e === null) {
-            v.classList.add('res');
-            v.textContent = T.degenerada;
-            return;
-        }
-        var bo = e <= Inv.TOLERANCIA;
-        v.classList.add(bo ? 'bo' : 'mal');
-        v.textContent = bo ? T.esCompleix + ' ✓' : T.noEsCompleix + ' ✗';
     }
 
     /** El punt del món (cm, y cap amunt) sota el punter. */
@@ -273,7 +257,6 @@
     });
 
     // ── Accions ────────────────────────────────────────────────────────────
-    $('btn-prova').textContent = T.prova;
     $('btn-atzar').textContent = T.atzar;
     $('btn-inicial').textContent = T.inicial;
     $('btn-trencada').textContent = T.trencada;
@@ -283,16 +266,6 @@
     if (t.nota) C.posa($('nota'), t.nota);
     else $('nota').hidden = true;
 
-    $('btn-prova').addEventListener('click', function () {
-        var r = R.prova(t),
-            rt = R.prova(t, { trencada: true });
-        var inf = $('informe');
-        inf.textContent = '';
-        inf.appendChild(C.element('p', T.informe(r), r.compleixen === r.n ? 'bo' : 'mal'));
-        if (r.descartades) inf.appendChild(C.element('p', T.descartades(r.descartades), 'nota'));
-        inf.appendChild(C.element('p', T.informeTrencada(rt), 'trencada'));
-        inf.hidden = false;
-    });
     var tirades = 0;
     $('btn-atzar').addEventListener('click', function () {
         var rng = Atzar.crea('atzar:' + t.id + ':' + tirades++);

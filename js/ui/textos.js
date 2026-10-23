@@ -17,8 +17,8 @@
     'use strict';
     return {
         titol: 'Teoremes que no t’esperes',
-        lema: 'Catorze teoremes de geometria que costa creure. Arrossega la figura, posa-la a prova amb mil configuracions i puja l’escala de pistes fins a la demostració.',
-        esglaons: ['Arrossega', 'Posa-ho a prova', 'Demostra-ho', 'I després?'],
+        lema: 'Catorze teoremes de geometria que costa creure. Arrossega la figura, trenca’n una hipòtesi per veure què canvia i puja l’escala de pistes fins a la demostració.',
+        esglaons: ['Arrossega', 'Trenca una hipòtesi', 'Demostra-ho', 'I després?'],
         obre: 'Obre',
         fitxa: 'Fitxa per imprimir',
         totesFitxes: 'Imprimeix totes les fitxes',
@@ -38,12 +38,8 @@
         triat: function (p) {
             return 'Has triat ' + p + ': toca on el vols posar, o fes servir les fletxes. Esc per deixar-lo.';
         },
-        esCompleix: 'Es compleix',
-        noEsCompleix: 'No es compleix',
-        degenerada: 'Configuració degenerada: el teorema no hi diu res',
 
         // Accions
-        prova: 'Prova de resistència',
         atzar: 'Configuració a l’atzar',
         inicial: 'Torna a la figura inicial',
         trencada: 'Variant trencada',
@@ -51,24 +47,7 @@
         projector: 'Mode projector',
         surtProjector: 'Surt del projector',
 
-        // Prova de resistència
-        informe: function (r) {
-            return 'Prova de resistència: ' + r.compleixen + ' de ' + r.n + ' configuracions compleixen el teorema.';
-        },
-        descartades: function (n) {
-            return n === 1
-                ? 'S’ha descartat 1 configuració degenerada.'
-                : 'S’han descartat ' + n + ' configuracions degenerades.';
-        },
-        informeTrencada: function (r) {
-            return (
-                'Variant trencada: ' +
-                r.compleixen +
-                ' de ' +
-                r.n +
-                ' configuracions. Així és un «teorema» que no es compleix.'
-            );
-        },
+        // Variant trencada
         enTrencada: 'Estàs mirant la variant trencada:',
 
         // Pistes
