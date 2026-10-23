@@ -57,6 +57,10 @@ Només es desa en aquest navegador quantes pistes has obert de cada teorema (`te
 
 No cal instal·lar res: obre `index.html` amb doble clic. No fa cap petició a internet: KaTeX (les fórmules) és dins del repositori.
 
+## Com es veu
+
+L’aspecte és el de [geom](https://geom.step-quiz.net): paper i tinta, lletra de llibre, sense targetes ni ombres, separadors fins i botons discrets. A la interfície hi ha un sol color, el marró llapis. A la figura n’hi ha un altre, la sanguina: el negre és la figura de l’enunciat, i la sanguina és la sorpresa (el que el teorema diu) i el que s’hi afegeix a les pistes. El color no és mai l’única pista: el destacat és més gruixut, les pistes són discontínues i «I després» té un traç de ratlla i punt. La figura és a l’esquerra i no se’n va de la pantalla mentre llegeixes les pistes i la demostració (a l’ordinador); al mòbil, tot va en una columna.
+
 ## Com està fet
 
 HTML, CSS i JavaScript sense compilació, amb scripts clàssics perquè funcioni amb doble clic.
@@ -65,10 +69,12 @@ HTML, CSS i JavaScript sense compilació, amb scripts clàssics perquè funcioni
 index.html               la portada
 teorema.html             un teorema: figura, prova, pistes, demostració, i després
 fitxa.html               les fitxes per imprimir
+css/fonts.css            les lletres (Source Serif 4 i JetBrains Mono, les de geom)
 css/tokens.css           colors (clar i fosc), també els de la figura
 css/teoremes.css         estils, mode projector i impressió
 data/teoremes/*.js       un fitxer per teorema
 vendor/katex-0.16.11/    KaTeX (llicència MIT), només les fonts woff2
+vendor/fonts/            les lletres en woff2 (llicència SIL OFL 1.1)
 js/motor/geo-motor.js    GeoMotor, el motor de geometria dinàmica (FITXER COMÚ)
 js/motor/atzar.js        atzar amb llavor (el de prova1eso)
 js/motor/text.js         separa el text i les fórmules entre $…$

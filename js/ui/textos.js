@@ -95,7 +95,7 @@
             tanca: '3 · On mirar',
             comprovacio: 'Comprovació',
         },
-        figuraPista: 'Mira la figura: hi han sortit, en blau, objectes nous.',
+        figuraPista: 'Mira la figura: hi han sortit objectes nous, amb traç discontinu.',
 
         // Demostració
         demostracio: 'La demostració',
@@ -111,7 +111,7 @@
         iDespres: 'I després?',
         mostraIDespres: 'Mostra-ho',
         amagaIDespres: 'Amaga-ho',
-        iDespresFigura: 'A la figura, en verd.',
+        iDespresFigura: 'A la figura, amb traç de ratlla i punt.',
 
         historia: 'Una mica d’història',
         referencies: 'Referències',

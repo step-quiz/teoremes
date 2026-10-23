@@ -2,72 +2,60 @@
 ============================================================================
 PROJECTE: teoremes (Step Quiz, vanilla JS)
 FITXER: css/tokens.css
-ROL: Colors i mides comuns, en mode clar i fosc. La resta dels estils només
-     fan servir aquestes variables. Contrast del text ≥ 4,5:1. Els colors de
-     la figura no són mai l'única pista: el que és destacat també és més gruixut,
-     les pistes són discontínues i «I després», amb un altre traç.
-DEPENDÈNCIES: cap. Es carrega abans de css/teoremes.css.
+ROL: Colors, lletres i mides comuns, en mode clar i fosc. La resta dels estils
+     només fan servir aquestes variables. Contrast del text ≥ 4,5:1.
+ORIGEN: la paleta de geom (css/tokens.css): paper i tinta, no colors
+     d'aplicació. Un sol accent a la interfície (--llapis, marró llapis) i un
+     sol color a la figura (--sanguina), amb el sentit de geom: negre és la
+     figura de l'enunciat; sanguina, el que hi afegeixes o el que sorprèn.
+     El color no és mai l'única pista: el destacat també és més gruixut, les
+     pistes són discontínues i «I després» té un altre traç.
+DEPENDÈNCIES: css/fonts.css (les lletres). Es carrega abans de css/teoremes.css.
 ============================================================================
 */
 :root {
-    --text: #1e293b;
-    --text-suau: #475569;
-    --fons: #f8fafc;
-    --panell: #ffffff;
-    --vora-panell: #e2e8f0;
-    --primari: #4338ca;
-    --primari-fosc: #3730a3;
-    --primari-clar: #e0e7ff;
-    --be: #047857;
-    --be-fons: #d1fae5;
-    --error: #b91c1c;
-    --error-fons: #fee2e2;
-    --avis-fons: #fef3c7;
-    --avis-vora: #b45309;
+    --paper: #fbf9f4;
+    --paper-alt: #f5f1e8; /* un to per sota del paper: informes, avisos */
+    --tinta: #211e1b;
+    --tinta-suau: #56534c;
+    --tinta-fluixa: #8c887e;
+    --llapis: #8b5e3c; /* l'únic accent de la interfície */
+    --llapis-suau: #c9ad93;
+    --linia: #dedace;
+    --linia-forta: #c7c1b2;
+    --sanguina: #b0453a; /* només dins de la figura */
 
     /* Figura (js/motor/dibuix.js) */
-    --f-fons: #ffffff;
-    --f-base: #1e293b;
-    --f-aux: #94a3b8;
-    --f-pista: #2563eb;
-    --f-extra: #047857;
-    --f-destacat: #be123c;
-    --f-destacat-ple: rgba(190, 18, 60, 0.1);
-    --f-extra-ple: rgba(4, 120, 87, 0.1);
-    --f-lliure: #4338ca;
+    --f-fons: var(--paper);
+    --f-base: var(--tinta);
+    --f-aux: var(--tinta-fluixa);
+    --f-pista: var(--sanguina);
+    --f-extra: var(--tinta-suau);
+    --f-destacat: var(--sanguina);
+    --f-destacat-ple: rgba(176, 69, 58, 0.09);
+    --f-extra-ple: rgba(33, 30, 27, 0.06);
+    --f-lliure: var(--tinta);
 
-    --radi: 10px;
-    --ombra: 0 1px 3px rgba(15, 23, 42, 0.08);
-    --lletra: system-ui, -apple-system, 'Segoe UI', Roboto, Ubuntu, 'Helvetica Neue', Arial, sans-serif;
-    --lletra-figura: 'Latin Modern Roman', 'CMU Serif', 'Times New Roman', Times, serif;
+    --lletra: 'Source Serif 4', 'Iowan Old Style', 'Palatino Linotype', Georgia, serif;
+    --lletra-mono: 'JetBrains Mono', 'IBM Plex Mono', ui-monospace, monospace;
+    --lletra-figura: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+    --mida-meta: 0.74rem; /* etiquetes en monoespaiada */
+    --espai-mono: 0.04em;
+    --radi: 3px;
 }
-
 @media (prefers-color-scheme: dark) {
     :root {
-        --text: #e2e8f0;
-        --text-suau: #94a3b8;
-        --fons: #0f172a;
-        --panell: #1e293b;
-        --vora-panell: #334155;
-        --primari: #a5b4fc;
-        --primari-fosc: #c7d2fe;
-        --primari-clar: #1e1b4b;
-        --be: #6ee7b7;
-        --be-fons: #064e3b;
-        --error: #fca5a5;
-        --error-fons: #450a0a;
-        --avis-fons: #451a03;
-        --avis-vora: #fbbf24;
-
-        --f-fons: #111827;
-        --f-base: #e2e8f0;
-        --f-aux: #64748b;
-        --f-pista: #60a5fa;
-        --f-extra: #34d399;
-        --f-destacat: #fb7185;
-        --f-destacat-ple: rgba(251, 113, 133, 0.14);
-        --f-extra-ple: rgba(52, 211, 153, 0.12);
-        --f-lliure: #a5b4fc;
-        --ombra: none;
+        --paper: #1e1c19;
+        --paper-alt: #262320;
+        --tinta: #ede9e0;
+        --tinta-suau: #b6b0a2;
+        --tinta-fluixa: #7c776a;
+        --llapis: #d2a377;
+        --llapis-suau: #5b4a3a;
+        --linia: #38352f;
+        --linia-forta: #4a4640;
+        --sanguina: #e08a7a;
+        --f-destacat-ple: rgba(224, 138, 122, 0.13);
+        --f-extra-ple: rgba(237, 233, 224, 0.07);
     }
 }

@@ -3,10 +3,13 @@
 PROJECTE: teoremes (Step Quiz, vanilla JS)
 FITXER: css/teoremes.css
 ROL: Estils de les tres pàgines (index.html, teorema.html i fitxa.html):
-     capçalera, targetes, la figura (classes r-* de js/motor/dibuix.js), el
+     capçalera, portada, la figura (classes r-* de js/motor/dibuix.js), el
      mesurador d'error, l'informe de la prova, pistes i demostració, mode
      projector (body.projector) i impressió (sempre negre sobre blanc).
-DEPENDÈNCIES: css/tokens.css (es carrega abans); vendor/katex-0.16.11/katex.min.css.
+     L'estil és el de geom: paper i tinta, sense targetes ni ombres, separadors
+     fins, etiquetes en monoespaiada i botons discrets.
+DEPENDÈNCIES: css/fonts.css i css/tokens.css (es carreguen abans);
+     vendor/katex-0.16.11/katex.min.css.
 ============================================================================
 */
 * {
@@ -17,12 +20,12 @@ html {
 }
 body {
     margin: 0;
-    padding: 12px 16px 32px;
+    padding: 20px 16px 40px;
     font-family: var(--lletra);
     font-size: 17px;
-    line-height: 1.5;
-    color: var(--text);
-    background: var(--fons);
+    line-height: 1.6;
+    color: var(--tinta);
+    background: var(--paper);
 }
 button {
     font: inherit;
@@ -31,10 +34,16 @@ button {
     display: none !important;
 }
 .katex {
-    font-size: 1.06em;
+    font-size: 1.04em;
 }
 a {
-    color: var(--primari-fosc);
+    color: inherit;
+    text-decoration-color: var(--linia-forta);
+    text-underline-offset: 0.18em;
+}
+a:hover {
+    color: var(--llapis);
+    text-decoration-color: currentColor;
 }
 
 /* ── Capçalera i peu ───────────────────────────────────────────────────── */
@@ -49,83 +58,91 @@ a {
 .capcalera {
     display: flex;
     flex-wrap: wrap;
-    align-items: center;
+    align-items: baseline;
     justify-content: space-between;
-    gap: 6px 16px;
-    margin-bottom: 12px;
+    gap: 6px 20px;
+    margin-bottom: 18px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--linia);
 }
 .marca {
     margin: 0;
-    font-weight: 700;
+    font-size: 1.25em;
+    font-weight: 600;
 }
 .marca a {
     text-decoration: none;
 }
 .navega {
     display: flex;
-    gap: 16px;
+    gap: 20px;
     flex-wrap: wrap;
 }
 .navega a {
-    font-weight: 600;
+    font-family: var(--lletra-mono);
+    font-size: 0.8rem;
+    letter-spacing: var(--espai-mono);
+    text-decoration: none;
 }
 .capcalera-inici {
     display: block;
-    margin-bottom: 18px;
+    margin-bottom: 28px;
+    padding-bottom: 18px;
 }
 .capcalera-inici h1 {
-    margin: 8px 0 4px;
+    margin: 8px 0 6px;
     font-size: 2em;
-    color: var(--primari-fosc);
+    font-weight: 600;
+    line-height: 1.25;
 }
 .lema {
-    max-width: 46em;
-    margin: 0 0 10px;
-    font-size: 1.08em;
+    max-width: 40rem;
+    margin: 0 0 12px;
+    color: var(--tinta-suau);
 }
 .esglaons {
     display: flex;
     flex-wrap: wrap;
-    gap: 8px;
+    gap: 4px 22px;
     margin: 0;
     padding: 0;
     list-style: none;
     counter-reset: esglao;
+    font-family: var(--lletra-mono);
+    font-size: var(--mida-meta);
+    letter-spacing: var(--espai-mono);
+    color: var(--tinta-suau);
 }
 .esglaons li {
     counter-increment: esglao;
-    padding: 2px 10px;
-    border: 1px solid var(--vora-panell);
-    border-radius: 999px;
-    background: var(--panell);
-    font-size: 0.92em;
 }
 .esglaons li::before {
-    content: counter(esglao) '. ';
-    font-weight: 700;
-    color: var(--primari-fosc);
+    content: counter(esglao) ' · ';
+    color: var(--tinta-suau);
 }
 .peu {
-    margin-top: 28px;
-    color: var(--text-suau);
+    margin-top: 40px;
+    padding-top: 12px;
+    border-top: 1px solid var(--linia);
+    color: var(--tinta-suau);
     font-size: 0.85em;
 }
 .nota {
-    color: var(--text-suau);
+    color: var(--tinta-suau);
     font-size: 0.92em;
     margin: 6px 0;
 }
 .etiqueta {
     margin: 0;
-    color: var(--text-suau);
-    font-size: 0.9em;
-    font-weight: 600;
+    font-family: var(--lletra-mono);
+    font-size: var(--mida-meta);
+    letter-spacing: var(--espai-mono);
     text-transform: uppercase;
-    letter-spacing: 0.04em;
+    color: var(--tinta-suau);
 }
 .angles {
     margin: 0;
-    color: var(--text-suau);
+    color: var(--tinta-suau);
     font-style: italic;
 }
 .enllacos {
@@ -133,10 +150,10 @@ a {
     flex-wrap: wrap;
     align-items: center;
     gap: 12px;
-    margin-top: 14px;
+    margin-top: 16px;
 }
 
-/* ── Botons ────────────────────────────────────────────────────────────── */
+/* ── Botons: vora fina i sense omplir, com els de geom ─────────────────── */
 .accions {
     display: flex;
     flex-wrap: wrap;
@@ -145,41 +162,54 @@ a {
     margin-top: 10px;
 }
 .btn {
-    min-height: 44px;
-    padding: 8px 16px;
-    border: 2px solid var(--primari);
-    border-radius: 8px;
-    background: var(--panell);
-    color: var(--primari-fosc);
-    font-weight: 600;
+    min-height: 40px;
+    padding: 6px 14px;
+    border: 1px solid var(--linia-forta);
+    border-radius: var(--radi);
+    background: transparent;
+    color: var(--tinta);
     cursor: pointer;
 }
-.btn-principal,
+.btn:hover:not(:disabled) {
+    border-color: var(--llapis);
+    color: var(--llapis);
+}
+/* El botó principal, com «Comença la guia» de geom: un to per sota del paper
+   i una vora més gruixuda, sense cap color nou. */
+.btn-principal {
+    border-width: 2px;
+    font-weight: 600;
+    background: var(--linia);
+    background: color-mix(in srgb, var(--paper-alt) 88%, var(--tinta) 12%);
+}
 .btn[aria-pressed='true'] {
-    background: var(--primari);
-    color: var(--panell);
+    border-color: var(--llapis);
+    color: var(--llapis);
+    background: var(--paper-alt);
+    font-weight: 600;
 }
 .btn:disabled {
-    opacity: 0.5;
+    color: var(--tinta-fluixa); /* control inactiu: fora del mínim de contrast */
+    border-color: var(--linia);
     cursor: not-allowed;
 }
 .btn-petit {
-    min-height: 36px;
-    padding: 4px 10px;
+    min-height: 34px;
+    padding: 3px 10px;
     font-size: 0.9em;
 }
 .btn:focus-visible,
 a:focus-visible,
 summary:focus-visible {
-    outline: 3px solid var(--f-pista);
+    outline: 2px solid var(--llapis);
     outline-offset: 2px;
 }
 
-/* ── Portada ───────────────────────────────────────────────────────────── */
+/* ── Portada: graella de figures, sense targetes ───────────────────────── */
 .graella {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
-    gap: 14px;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 34px 28px;
     margin: 0;
     padding: 0;
     list-style: none;
@@ -187,30 +217,24 @@ summary:focus-visible {
 .targeta {
     display: flex;
     flex-direction: column;
-    background: var(--panell);
-    border: 1px solid var(--vora-panell);
-    border-radius: var(--radi);
-    box-shadow: var(--ombra);
-    overflow: hidden;
-}
-.targeta:hover {
-    border-color: var(--primari);
 }
 .enllac-targeta {
-    position: relative;
     display: block;
-    padding: 0 14px 4px;
-    color: var(--text);
+    color: inherit;
     text-decoration: none;
 }
 .enllac-targeta h2 {
-    margin: 8px 0 0;
-    font-size: 1.1em;
-    color: var(--primari-fosc);
+    margin: 2px 0 0;
+    font-size: 1.15em;
+    font-weight: 600;
+    line-height: 1.3;
+}
+.enllac-targeta:hover h2 {
+    color: var(--llapis);
 }
 .miniatura {
-    margin: 0 -14px;
-    border-bottom: 1px solid var(--vora-panell);
+    margin-bottom: 10px;
+    border-bottom: 1px solid var(--linia);
 }
 .miniatura .figura {
     display: block;
@@ -219,37 +243,34 @@ summary:focus-visible {
     aspect-ratio: 16 / 10;
 }
 .numero {
-    position: absolute;
-    top: 8px;
-    left: 10px;
-    min-width: 28px;
-    padding: 0 6px;
-    border-radius: 999px;
-    background: var(--primari);
-    color: var(--panell);
-    font-weight: 700;
-    text-align: center;
+    display: block;
+    font-family: var(--lletra-mono);
+    font-size: var(--mida-meta);
+    letter-spacing: var(--espai-mono);
+    color: var(--tinta-suau);
 }
 .enunciat-curt {
-    margin: 4px 14px 14px;
-    font-size: 0.93em;
+    margin: 6px 0 0;
+    font-size: 0.94em;
+    color: var(--tinta-suau);
 }
 
 /* ── Teorema ───────────────────────────────────────────────────────────── */
 .cap-teorema h1 {
-    margin: 2px 0 0;
-    font-size: 1.7em;
-    color: var(--primari-fosc);
+    margin: 4px 0 0;
+    font-size: 1.75em;
+    font-weight: 600;
+    line-height: 1.25;
 }
 .enunciat {
-    max-width: 52em;
-    margin: 10px 0 16px;
+    max-width: 44rem;
+    margin: 12px 0 22px;
     font-size: 1.1em;
 }
 .columnes {
     display: grid;
     grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
-    gap: 18px;
+    gap: 32px;
     align-items: start;
 }
 @media (max-width: 880px) {
@@ -267,7 +288,7 @@ summary:focus-visible {
     }
 }
 .marc-figura {
-    border: 1px solid var(--vora-panell);
+    border: 1px solid var(--linia);
     border-radius: var(--radi);
     overflow: hidden;
     background: var(--f-fons);
@@ -280,30 +301,40 @@ summary:focus-visible {
     user-select: none;
     -webkit-user-select: none;
 }
+/* Les seccions de la dreta, com la guia de geom: un separador fi a dalt i el
+   títol petit en majúscules. */
 .panell {
-    background: var(--panell);
-    border: 1px solid var(--vora-panell);
-    border-radius: var(--radi);
-    box-shadow: var(--ombra);
-    padding: 14px;
-    margin-bottom: 14px;
+    margin-bottom: 22px;
+    padding-top: 14px;
+    border-top: 1px solid var(--linia);
 }
 .panell h2,
 .referencies h2 {
     margin: 0 0 6px;
-    font-size: 1.15em;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: var(--espai-mono);
+    text-transform: uppercase;
+    color: var(--tinta-suau);
+}
+.referencies {
+    padding-top: 14px;
+    border-top: 1px solid var(--linia);
 }
 .historia {
-    margin-bottom: 14px;
+    margin-bottom: 18px;
 }
 .historia summary {
     cursor: pointer;
-    font-weight: 600;
-    color: var(--primari-fosc);
+    color: var(--tinta-suau);
+}
+.historia summary:hover {
+    color: var(--llapis);
 }
 .referencies ul {
     padding-left: 20px;
     font-size: 0.92em;
+    color: var(--tinta-suau);
 }
 
 /* ── La figura (classes de js/motor/dibuix.js) ─────────────────────────── */
@@ -371,7 +402,7 @@ summary:focus-visible {
     stroke-width: 1.5px;
 }
 .figura circle.punt.triat {
-    stroke: var(--f-pista);
+    stroke: var(--llapis);
     stroke-width: 4px;
 }
 .figura .et {
@@ -390,7 +421,7 @@ summary:focus-visible {
     fill: var(--f-extra);
 }
 .figura .et.r-aux {
-    fill: var(--text-suau);
+    fill: var(--tinta-suau);
 }
 .figura .toc {
     fill: transparent;
@@ -401,16 +432,16 @@ summary:focus-visible {
     outline: none;
 }
 .figura .toc:focus-visible {
-    stroke: var(--f-pista);
+    stroke: var(--llapis);
     stroke-width: 2px;
     stroke-dasharray: 3 3;
 }
 .figura .toc[aria-pressed='true'] {
-    stroke: var(--f-pista);
+    stroke: var(--llapis);
     stroke-width: 2px;
 }
 
-/* ── Mesurador d'error ─────────────────────────────────────────────────── */
+/* ── Mesurador d'error: tinta si es compleix, llapis si no ─────────────── */
 .mesura {
     display: flex;
     align-items: center;
@@ -419,61 +450,58 @@ summary:focus-visible {
 }
 .barra {
     flex: 0 0 34%;
-    height: 12px;
-    border: 1px solid var(--vora-panell);
-    border-radius: 999px;
-    background: var(--panell);
+    height: 6px;
+    border: 1px solid var(--linia-forta);
+    border-radius: 1px;
+    background: transparent;
     overflow: hidden;
 }
 .ple-barra {
     width: 0;
     height: 100%;
-    background: var(--be);
+    background: var(--tinta-suau);
 }
 .mesura.mal .ple-barra {
-    background: var(--error);
+    background: var(--llapis);
 }
 .valor {
     margin: 0;
-    font-weight: 600;
+    font-family: var(--lletra-mono);
+    font-size: 0.82rem;
+    letter-spacing: var(--espai-mono);
     font-variant-numeric: tabular-nums;
 }
-.mesura.bo .valor {
-    color: var(--be);
-}
 .mesura.mal .valor {
-    color: var(--error);
+    color: var(--llapis);
+    font-weight: 500;
 }
 .mesura.res .valor {
-    color: var(--text-suau);
+    color: var(--tinta-suau);
 }
 .avis-trencada {
     margin-bottom: 8px;
     padding: 8px 12px;
-    border-left: 4px solid var(--avis-vora);
-    border-radius: 6px;
-    background: var(--avis-fons);
+    border-left: 2px solid var(--llapis);
+    background: var(--paper-alt);
 }
 .avis-trencada p {
     margin: 0;
 }
 .informe {
-    margin-top: 10px;
-    padding: 10px 12px;
-    border: 1px solid var(--vora-panell);
-    border-radius: var(--radi);
-    background: var(--panell);
+    margin-top: 12px;
+    padding: 10px 14px;
+    border-left: 2px solid var(--linia-forta);
+    background: var(--paper-alt);
 }
 .informe p {
     margin: 4px 0;
 }
 .informe .bo {
-    color: var(--be);
     font-weight: 600;
 }
 .informe .mal,
 .informe .trencada {
-    color: var(--error);
+    color: var(--llapis);
     font-weight: 600;
 }
 
@@ -485,17 +513,21 @@ summary:focus-visible {
     list-style: none;
 }
 .pistes li {
-    margin: 0 0 8px;
-    padding: 8px 10px;
-    border-left: 4px solid var(--f-pista);
-    border-radius: 4px;
-    background: var(--fons);
+    margin: 0 0 14px;
+    padding-left: 14px;
+    border-left: 2px solid var(--linia);
+}
+/* La pista de la figura és el gir de l'escala (com el nivell 2 de geom). */
+.pistes li.pista-figura {
+    border-left-color: var(--llapis-suau);
 }
 .nom-pista {
     display: block;
-    font-weight: 700;
-    font-size: 0.9em;
-    color: var(--text-suau);
+    margin-bottom: 2px;
+    font-family: var(--lletra-mono);
+    font-size: var(--mida-meta);
+    letter-spacing: var(--espai-mono);
+    color: var(--tinta-suau);
 }
 .pistes .nota {
     display: block;
@@ -506,34 +538,27 @@ summary:focus-visible {
 .passos li {
     counter-increment: pas;
     position: relative;
-    margin: 0 0 8px;
-    padding: 6px 0 6px 34px;
+    margin: 0 0 10px;
+    padding: 2px 0 2px 30px;
 }
 .passos li::before {
     content: counter(pas);
     position: absolute;
     left: 0;
-    top: 6px;
-    width: 24px;
-    height: 24px;
-    border-radius: 50%;
-    background: var(--primari-clar);
-    color: var(--primari-fosc);
-    font-weight: 700;
-    font-size: 0.85em;
-    text-align: center;
-    line-height: 24px;
+    top: 0.42em;
+    font-family: var(--lletra-mono);
+    font-size: var(--mida-meta);
+    color: var(--tinta-suau);
 }
 .passos li.actual::before {
-    background: var(--primari);
-    color: var(--panell);
+    color: var(--llapis);
+    font-weight: 500;
 }
 .prova-primer {
     margin-top: 8px;
-    padding: 10px 12px;
-    border: 1px dashed var(--primari);
+    padding: 10px 14px;
+    border: 1px dashed var(--linia-forta);
     border-radius: var(--radi);
-    background: var(--primari-clar);
 }
 .prova-primer p {
     margin: 0 0 6px;
@@ -574,19 +599,20 @@ body.projector .figura .r-destacat {
 /* ── Fitxes ────────────────────────────────────────────────────────────── */
 .fitxa {
     max-width: 780px;
-    margin: 0 auto 24px;
+    margin: 0 auto 28px;
     padding: 20px 24px;
-    background: var(--panell);
-    border: 1px solid var(--vora-panell);
+    border: 1px solid var(--linia);
     border-radius: var(--radi);
 }
 .fitxa h1 {
     margin: 4px 0 0;
     font-size: 1.5em;
+    font-weight: 600;
 }
 .fitxa h2 {
     margin: 14px 0 4px;
     font-size: 1.05em;
+    font-weight: 600;
 }
 .figura-fitxa .figura {
     display: block;
@@ -595,18 +621,17 @@ body.projector .figura .r-destacat {
     margin: 0 auto;
 }
 .fitxa .pistes li {
-    margin-bottom: 4px;
-    padding: 4px 8px;
+    margin-bottom: 6px;
 }
 .espai {
     height: 150px;
-    border: 1px solid var(--vora-panell);
-    border-radius: 6px;
+    border: 1px solid var(--linia-forta);
+    border-radius: var(--radi);
 }
 .peu-fitxa {
     margin: 12px 0 0;
     font-size: 0.8em;
-    color: var(--text-suau);
+    color: var(--tinta-suau);
 }
 
 /* ── Impressió: sempre negre sobre blanc ───────────────────────────────── */
@@ -616,11 +641,14 @@ body.projector .figura .r-destacat {
 }
 @media print {
     :root {
-        --text: #000;
-        --text-suau: #333;
-        --fons: #fff;
-        --panell: #fff;
-        --vora-panell: #999;
+        --paper: #fff;
+        --paper-alt: #fff;
+        --tinta: #000;
+        --tinta-suau: #333;
+        --tinta-fluixa: #555;
+        --linia: #999;
+        --linia-forta: #999;
+        --llapis-suau: #000;
         --f-fons: #fff;
         --f-base: #000;
         --f-aux: #888;
@@ -630,7 +658,6 @@ body.projector .figura .r-destacat {
         --f-destacat-ple: rgba(0, 0, 0, 0.08);
         --f-extra-ple: rgba(0, 0, 0, 0.05);
         --f-lliure: #000;
-        --primari-fosc: #000;
     }
     body {
         padding: 0;
@@ -671,7 +698,7 @@ body.projector .figura .r-destacat {
     }
     .fitxa .pistes li {
         margin-bottom: 2px;
-        padding: 2px 6px;
+        padding-left: 6px;
         font-size: 10pt;
         break-inside: avoid;
     }
@@ -684,7 +711,6 @@ body.projector .figura .r-destacat {
     }
     .pistes li {
         border-left-color: #000;
-        background: #fff;
     }
     .columnes {
         display: block;
